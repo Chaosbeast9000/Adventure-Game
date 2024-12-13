@@ -281,17 +281,66 @@ def left_corridor():
     print("\nYou step into the left corridor, where the air grows colder and darker.")
     print("\nThe walls are lined with faded portraits whose eyes seem to follow you.")
     print("\nAt the end of the hall, you see a locked door with three symbols etched into it: a sun, a sword, and a raven.")
-    puzzle_solution = input("\nThe door's inscription reads: 'Choose the symbol that brings both light and strength.' What is your choice? ").lower()
+    print("\nNext to the locked door, there’s another smaller door slightly ajar, with faint glowing symbols emanating from within.")
+    
+    choice = input("\nDo you solve the puzzle to open the locked door (type 'solve') or enter the glowing room (type 'enter')? ").lower()
 
-    if puzzle_solution == "sword":
-        print("\nThe door creaks open, revealing a small armory. Inside, you find a gleaming silver longsword.")
-        items.append("silver longsword")
-        print("\nThe weapon hums with holy energy. You feel prepared for the challenges ahead.")
+    if choice == "solve":
+        puzzle_solution = input("\nThe door's inscription reads: 'Choose the symbol that brings both light and strength.' What is your choice? ").lower()
+        if puzzle_solution == "sword":
+            print("\nThe door creaks open, revealing a small armory. Inside, you find a gleaming silver longsword.")
+            items.append("silver longsword")
+            print("\nThe weapon hums with holy energy. You feel prepared for the challenges ahead.")
+        else:
+            print("\nThe door remains locked, and a faint laugh echoes through the corridor.")
+            print("\nYou feel unwelcome and retreat to the main hall.")
         castle_hall()
+    elif choice == "enter":
+        puzzle_room()  # Lead into the new puzzle room
     else:
-        print("\nThe door remains locked, and a faint laugh echoes through the corridor.")
-        print("\nYou feel unwelcome and retreat to the main hall.")
+        print("\nIndecision wastes precious time. You retreat to the main hall.")
         castle_hall()
+
+def left_corridor():
+    print("\nYou step into the left corridor, where the air grows colder and darker.")
+    print("\nThe walls are lined with faded portraits whose eyes seem to follow you.")
+    print("\nAt the end of the hall, you see a locked door with three symbols etched into it: a sun, a sword, and a raven.")
+    print("\nNext to the locked door, there’s another smaller door slightly ajar, with faint glowing symbols emanating from within.")
+    
+    choice = input("\nDo you solve the puzzle to open the locked door (type 'solve') or enter the glowing room (type 'enter')? ").lower()
+
+    if choice == "solve":
+        puzzle_solution = input("\nThe door's inscription reads: 'Choose the symbol that brings both light and strength.' What is your choice? ").lower()
+        if puzzle_solution == "sword":
+            print("\nThe door creaks open, revealing a small armory. Inside, you find a gleaming silver longsword.")
+            items.append("silver longsword")
+            print("\nThe weapon hums with holy energy. You feel prepared for the challenges ahead.")
+        else:
+            print("\nThe door remains locked, and a faint laugh echoes through the corridor.")
+            print("\nYou feel unwelcome and retreat to the main hall.")
+        castle_hall()
+    elif choice == "enter":
+        puzzle_room()  # Lead into the new puzzle room
+    else:
+        print("\nIndecision wastes precious time. You retreat to the main hall.")
+        castle_hall()
+
+def puzzle_room():
+    print("\nYou find yourself in a circular room with walls covered in intricate carvings of ancient symbols.")
+    print("In the center of the room lies a large stone pedestal with an inscription:")
+    print("\n'To proceed, answer truthfully: What has roots as nobody sees, is taller than trees, up, up it goes, and yet it never grows?'")
+
+    answer = input("\nWhat is your answer? ").lower()
+    if answer == "mountain":
+        print("\nThe pedestal shifts, revealing a secret passage. You sense this is the right path forward.")
+        print("\nYou carefully make your way down the passage, deeper into the castle.")
+        secret_passage()  # Continue deeper into the castle
+    else:
+        print("\nThe room begins to shake violently, and a trapdoor opens beneath you!")
+        print("You fall into a dark pit, landing hard on jagged rocks.")
+        print("\nYou lose 10 health.")
+        # Health adjustment (if implemented)
+        arrive()  # Return to the arrival stage
 
 def right_corridor():
     print("\nThe right corridor is shrouded in an eerie silence. The flickering torches cast long, dancing shadows.")
