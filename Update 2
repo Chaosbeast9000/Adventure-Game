@@ -1,0 +1,111 @@
+        print("\nYou step back carefully, sensing the danger. The figure's predatory grin fades as you retreat.")
+        print("\nThe chapel seems to exude an oppressive energy as you leave, and the faint sound of a growl echoes behind you.")
+        print("\nYou find yourself back at the castle entrance, the sand in the hourglass slipping away.")
+        castle_entrance()
+    else:
+        print("\nIndecision freezes you momentarily. The figure's grin grows wider as the candlelight flickers ominously.")
+        chapel()  # Recurse for valid input
+
+def combat():
+    print("\nThe vampire spawn lunges toward you, fangs bared and claws outstretched!")
+    print("\nPrepare for battle!")
+
+    # A basic combat sequence
+    health = 20  # Player health
+    vamp_health = 25  # Vampire spawn health
+    while health > 0 and vamp_health > 0:
+        action = input("\nDo you attack with your weapon (type 'attack') or try to retreat (type 'retreat')? ").lower()
+
+        if action == "attack":
+            damage = int(input("Roll for damage (enter a number 1-10): "))
+            vamp_health -= damage
+            print(f"\nYou strike the vampire for {damage} damage! Its health is now {vamp_health}.")
+            if vamp_health > 0:
+                vamp_damage = 7  # Fixed vampire damage
+                health -= vamp_damage
+                print(f"\nThe vampire claws at you, dealing {vamp_damage} damage. Your health is now {health}.")
+        elif action == "retreat":
+            print("\nYou stumble backward, making your way out of the chapel. The vampire spawn does not pursue but snarls as you leave.")
+            print("\nYou find yourself back at the castle entrance, shaken but alive.")
+            castle_entrance()
+            return  # End the combat loop if retreating
+        else:
+            print("\nIndecision could be your downfall!")
+    
+    if health > 0:
+        print("\nWith one final strike, you defeat the vampire spawn! Its body crumples to the floor and dissolves into ash.")
+        print("\nIn the remains, you find a strange holy relic—a silver amulet etched with the sigil of the Morninglord.")
+        items.append("silver amulet")
+        print("\nYou take the amulet and leave the chapel, returning to the castle entrance.")
+        castle_entrance()
+    else:
+        print("\nThe vampire spawn overpowers you. Your vision fades as darkness consumes you.")
+        game_over()
+
+def castle_entrance():
+    print("\nStanding before the massive doors of Castle Ravenloft, you feel a chill run down your spine. The hourglass looms in your mind as the sands continue to fall.")
+    choice = input("\nDo you push open the doors (type 'enter') or inspect the courtyard for clues (type 'inspect')? ").lower()
+
+    if choice == "enter":
+        print("\nThe ancient doors creak open, revealing the grand but foreboding entry hall of Castle Ravenloft.")
+        print("\nThe sound of your footsteps echoes as you step inside.")
+        castle_hall()
+    elif choice == "inspect":
+        print("\nYou search the courtyard, looking for anything that might help in your quest.")
+        if "silver amulet" in items:
+            print("\nThe silver amulet you found begins to glow faintly. A hidden engraving on the castle wall catches your attention.")
+            print("\nYou discover a secret entrance leading to the lower levels of the castle.")
+            secret_passage()
+        else:
+            print("\nYou find nothing of value. The castle entrance beckons.")
+            castle_entrance()
+    else:
+        print("\nIndecision wastes precious time. The hourglass sands continue to fall.")
+        castle_entrance()
+
+def castle_hall():
+    print("\nThe hall is vast and cold, lit by flickering torches. The air smells of decay and old stone.")
+    print("\nIn the center of the room, a massive staircase leads upward, while corridors extend to the left and right.")
+    choice = input("\nDo you ascend the staircase (type 'upstairs'), explore the left corridor (type 'left'), or the right corridor (type 'right')? ").lower()
+
+    if choice == "upstairs":
+        upstairs()
+    elif choice == "left":
+        left_corridor()
+    elif choice == "right":
+        right_corridor()
+    else:
+        print("\nThe silence is unnerving as you hesitate. You must choose!")
+        castle_hall()
+
+def secret_passage():
+    print("\nYou squeeze through the narrow passage, descending a spiral staircase into the depths of the castle.")
+    print("\nThe air grows colder as you enter a damp crypt. Strange symbols adorn the walls, glowing faintly in the darkness.")
+    print("\nYou sense powerful magic here. This must be an important location for your quest.")
+    # Add more story or gameplay interactions here as needed
+    print("\nYou press onward, your resolve hardening as the hourglass sands continue to fall.")
+    castle_hall()  # Return to the central hub
+
+def upstairs():
+    print("\nYou ascend the grand staircase, the creaking steps echoing ominously.")
+    print("\nAt the top, you see a door slightly ajar. Beyond it, faint whispers can be heard.")
+    # Add further exploration or encounters
+
+def left_corridor():
+    print("\nYou step into the left corridor, where the air grows even colder.")
+    print("\nTorches flicker as you move forward. Shadows seem to move just at the edge of your vision.")
+    # Add an encounter or puzzle
+
+def right_corridor():
+    print("\nThe right corridor is filled with eerie silence.")
+    print("\nA suit of armor stands motionless against the wall. Its visor seems to follow you as you pass.")
+    # Add a surprise encounter or secret
+
+def game_over():
+    print("\nThe mists of Barovia claim you as another victim of Strahd’s domain.")
+    print("\nYour quest ends here.")
+    exit()
+
+# Start the game
+start()
+
