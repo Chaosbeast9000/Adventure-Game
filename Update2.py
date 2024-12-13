@@ -461,6 +461,111 @@ def game_over():
             else:
                 print("Invalid choice. Try again.")
 
+import random
+import time
+
+# Function to slow down text output for better immersion
+def slow_print(text, delay=0.05):
+    for char in text:
+        print(char, end='', flush=True)
+        time.sleep(delay)
+    print()
+
+# Game Intro
+def intro():
+    slow_print("You find yourself surrounded by thick fog, trapped in a land of darkness and despair.")
+    slow_print("Welcome to Barovia, a cursed land ruled by the vampire lord Strahd Von Zarovich.")
+    slow_print("Your adventure begins now...\n")
+    input("Press Enter to continue...")
+
+# Act 1: The Village of Barovia
+def village_of_barovia():
+    slow_print("You arrive in the Village of Barovia. The air is cold, and a sense of dread fills the streets.")
+    slow_print("A man approaches you. 'I am Ismark Kolyanovich,' he says. 'My sister, Ireena, is in danger. Strahd has come for her.'")
+    choice = input("Do you help Ismark? (yes/no): ").lower()
+
+    if choice == "yes":
+        slow_print("You agree to help Ismark and decide to escort Ireena to safety.")
+        vallaki()
+    else:
+        slow_print("Ismark looks disappointed but understands. 'Then you must leave Barovia, for you will not survive here.'")
+        slow_print("You walk away from the village, but the mists keep you trapped. You're stuck in Barovia forever.")
+        game_over()
+
+# Act 2: Vallaki
+def vallaki():
+    slow_print("You travel with Ismark to the town of Vallaki. It's a town filled with secrets and strange people.")
+    slow_print("There, you meet Rictavio, a mysterious carnival performer who may hold knowledge about Strahd's weaknesses.")
+    choice = input("Do you trust Rictavio? (yes/no): ").lower()
+
+    if choice == "yes":
+        slow_print("Rictavio reveals a hidden truth about Strahd's power and tells you to seek out the Tome of Strahd.")
+        slow_print("You set out to find the Tome and weaken Strahd's influence over Barovia.")
+        krezk()
+    else:
+        slow_print("Rictavio warns you that ignorance could lead to your downfall, but you refuse to trust him.")
+        slow_print("Strahd's minions soon appear, and you are forced into a battle. You narrowly escape with your life.")
+        krezk()
+
+# Act 3: Krezk and Abbey of Saint Markovia
+def krezk():
+    slow_print("You arrive at Krezk, a small, isolated town. At the center is the Abbey of Saint Markovia.")
+    slow_print("Father Donavich speaks of an ancient artifact that could help defeat Strahd, but he warns of dark forces.")
+    choice = input("Do you investigate the Abbey? (yes/no): ").lower()
+
+    if choice == "yes":
+        slow_print("Inside the Abbey, you discover that Father Donavich's son is a vampire spawn. You must defeat him to progress.")
+        slow_print("With the vampire spawn vanquished, Father Donavich gives you a key to the Abbey's secret vault.")
+        slow_print("You find the **Holy Symbol of Ravenkind**, an artifact capable of weakening Strahd.")
+        slow_print("Armed with new knowledge, you make your way to Castle Ravenloft for the final confrontation.")
+        final_battle()
+    else:
+        slow_print("You decide to bypass the Abbey and search for other ways to defeat Strahd.")
+        slow_print("You encounter strange creatures and wander the wilderness for days, but Strahd’s influence grows stronger.")
+        final_battle()
+
+# Final Battle: Castle Ravenloft
+def final_battle():
+    slow_print("After a long journey, you stand at the gates of Castle Ravenloft, the lair of Strahd Von Zarovich.")
+    slow_print("Strahd appears on a balcony, laughing darkly. 'You think you can defeat me, mortal?'")
+    choice = input("Do you challenge Strahd? (yes/no): ").lower()
+
+    if choice == "yes":
+        slow_print("You enter the castle and confront Strahd. The battle is fierce, but your courage and the artifacts you’ve found help you fight back.")
+        slow_print("With a final strike, you defeat Strahd, breaking his curse and freeing Barovia from his grasp.")
+        slow_print("You’ve won... but at what cost? The land is forever changed.")
+        end_game(True)
+    else:
+        slow_print("You hesitate, and Strahd uses the opportunity to strike. His power is overwhelming, and you are slain.")
+        game_over()
+
+# Game Over
+def game_over():
+    slow_print("Game Over. The land of Barovia remains cursed, and Strahd’s rule continues.")
+    end_game(False)
+
+# End Game
+def end_game(success):
+    if success:
+        slow_print("Congratulations, you have freed Barovia from Strahd's curse!")
+    else:
+        slow_print("You failed in your quest. The mists of Barovia will claim another soul.")
+    choice = input("Do you want to play again? (yes/no): ").lower()
+    if choice == "yes":
+        main()
+    else:
+        slow_print("Thank you for playing. Farewell.")
+        exit()
+
+# Main function to run the game
+def main():
+    intro()
+    village_of_barovia()
+
+# Start the game
+main()
+
+
 # To play the campaign:
 campaign = CurseOfStrahdCampaign()
 campaign.play_game()
