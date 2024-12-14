@@ -557,6 +557,181 @@ def end_game(success):
         slow_print("Thank you for playing. Farewell.")
         exit()
 
+import random
+import time
+
+# Utility Functions
+def slow_print(text, delay=0.05):
+    """Prints text slowly for dramatic effect."""
+    for char in text:
+        print(char, end='', flush=True)
+        time.sleep(delay)
+    print()
+
+def roll_dice(sides=20):
+    """Roll a dice to determine outcomes."""
+    return random.randint(1, sides)
+
+# Player Class
+class Player:
+    def __init__(self):
+        self.name = ""
+        self.health = 100
+        self.strength = 10
+        self.wisdom = 10
+        self.inventory = []
+        self.allies = []
+        self.alignment = "Neutral"
+
+    def display_stats(self):
+        slow_print(f"Health: {self.health}\nStrength: {self.strength}\nWisdom: {self.wisdom}\n")
+        slow_print(f"Inventory: {', '.join(self.inventory) if self.inventory else 'None'}\n")
+        slow_print(f"Allies: {', '.join(self.allies) if self.allies else 'None'}\n")
+
+# NPC Class
+class NPC:
+    def __init__(self, name, role, alignment, description):
+        self.name = name
+        self.role = role
+        self.alignment = alignment
+        self.description = description
+
+# Game Events
+def introduction(player):
+    slow_print("The mists surround you, pulling you into an unknown land. You feel a chill in the air as the world changes around you.\n")
+    slow_print("You arrive in the cursed land of Barovia, trapped within the mists. A gothic nightmare unfolds before you...\n")
+    input("Press Enter to continue...\n")
+    village_of_barovia(player)
+
+def village_of_barovia(player):
+    slow_print("You find yourself in the Village of Barovia, a place filled with gloom and despair.\n")
+    slow_print("A young man approaches you. 'I am Ismark Kolyanovich. Please, you must help me. My sister, Ireena, is in grave danger.'\n")
+    slow_print("Ismark explains that Strahd, the vampire lord, is obsessed with his sister and seeks to make her his bride.\n")
+    choice = input("Do you agree to help Ismark? (yes/no): ").lower()
+
+    if choice == "yes":
+        player.allies.append("Ismark")
+        slow_print("You agree to help Ismark protect his sister. He leads you to their home.\n")
+        ireena_encounter(player)
+    else:
+        slow_print("Ismark looks at you with disappointment. 'Then may the gods have mercy on you.' You wander aimlessly, lost in the mists.\n")
+        game_over(player)
+
+def ireena_encounter(player):
+    slow_print("You meet Ireena Kolyana, a courageous woman who has been resisting Strahd's advances. She agrees to leave the village with you.\n")
+    slow_print("Ismark suggests taking Ireena to the fortified town of Vallaki or the isolated town of Krezk.\n")
+    choice = input("Where do you take Ireena? (Vallaki/Krezk): ").lower()
+
+    if choice == "vallaki":
+        slow_print("You decide to travel to Vallaki, a town that promises safety but hides its own dark secrets.\n")
+        vallaki(player)
+    elif choice == "krezk":
+        slow_print("You decide to travel to Krezk, a remote town near the Abbey of Saint Markovia.\n")
+        krezk(player)
+    else:
+        slow_print("Your indecision leads to Strahd's minions finding you. You are forced into battle.\n")
+        combat(player, "Strahd's Wolves")
+
+def vallaki(player):
+    slow_print("You arrive in Vallaki, a bustling town with an air of paranoia.\n")
+    slow_print("The Burgomaster Vasily Petrovich rules with an iron fist, hosting constant festivals to 'protect' the town from Strahd.\n")
+    slow_print("You hear rumors about Lady Wachter, a noblewoman who seeks to overthrow Vasily, and Rictavio, a mysterious carnival performer.\n")
+    slow_print("While in Vallaki, you must decide who to trust and uncover the town's secrets.\n")
+
+    choice = input("Do you ally with Lady Wachter or support the Burgomaster? (wachter/burgomaster): ").lower()
+
+    if choice == "wachter":
+        slow_print("Lady Wachter reveals her plans to overthrow Vasily, offering her help in your quest against Strahd if you support her.\n")
+        player.allies.append("Lady Wachter")
+    elif choice == "burgomaster":
+        slow_print("You decide to support Vasily, helping him maintain control of the town.\n")
+        player.allies.append("Burgomaster Vasily")
+    else:
+        slow_print("Your neutrality angers both sides, and you find yourself hunted by Strahd's minions.\n")
+        combat(player, "Strahd's Minions")
+
+    slow_print("With Vallaki in chaos, you prepare to continue your journey.\n")
+    act_two(player)
+
+def krezk(player):
+    slow_print("You arrive in Krezk, a quiet town near the Abbey of Saint Markovia.\n")
+    slow_print("Father Donavich, the local priest, tells you about the Abbey's dark history and its connection to Strahd.\n")
+    slow_print("You hear rumors of a vampire spawn hiding in the Abbey, but also of a sacred artifact that could weaken Strahd's power.\n")
+
+    choice = input("Do you investigate the Abbey? (yes/no): ").lower()
+
+    if choice == "yes":
+        slow_print("Inside the Abbey, you encounter horrors beyond imagination. You fight off the vampire spawn and uncover the Holy Symbol of Ravenkind.\n")
+        player.inventory.append("Holy Symbol of Ravenkind")
+    else:
+        slow_print("You decide to avoid the Abbey, missing the opportunity to find a powerful artifact.\n")
+
+    slow_print("With your time in Krezk complete, you prepare for the next phase of your journey.\n")
+    act_two(player)
+
+def act_two(player):
+    slow_print("You travel across Barovia, seeking allies and gathering artifacts to weaken Strahd's hold on the land.\n")
+    slow_print("You meet the Vistani, nomadic people who serve Strahd but offer cryptic guidance.\n")
+    slow_print("Madame Eva, a seer, performs a tarot reading that reveals the locations of key artifacts needed to defeat Strahd.\n")
+    player.inventory.append("Tome of Strahd")  # Example artifact
+
+    slow_print("With the artifacts in hand, you prepare to infiltrate Castle Ravenloft and face Strahd.\n")
+    final_battle(player)
+
+def combat(player, enemy):
+    slow_print(f"A {enemy} appears!\n")
+    while player.health > 0:
+        action = input("Do you attack or flee? (attack/flee): ").lower()
+        if action == "attack":
+            damage = roll_dice(10)
+            slow_print(f"You deal {damage} damage to the {enemy}.\n")
+            if random.random() < 0.5:
+                slow_print(f"The {enemy} is defeated!\n")
+                return True
+        elif action == "flee":
+            slow_print("You flee from the battle, losing some health in the process.\n")
+            player.health -= 10
+            return False
+        else:
+            slow_print("Invalid action. The enemy attacks!\n")
+            player.health -= 10
+    slow_print("You have been defeated.\n")
+    return False
+
+def final_battle(player):
+    slow_print("You stand at the gates of Castle Ravenloft, ready to face Strahd.\n")
+    slow_print("The final battle is fierce, but with your allies and artifacts, you manage to weaken Strahd.\n")
+
+    if roll_dice() > 15:  # Success is based on a dice roll
+        slow_print("With a final blow, you defeat Strahd and free Barovia from his curse.\n")
+        end_game(player, success=True)
+    else:
+        slow_print("Strahd overpowers you, and the land remains cursed.\n")
+        end_game(player, success=False)
+
+def end_game(player, success):
+    if success:
+        slow_print("Congratulations! You have lifted the curse of Barovia.\n")
+    else:
+        slow_print("You failed in your quest, and Barovia remains in eternal darkness.\n")
+    choice = input("Do you want to play again? (yes/no): ").lower()
+    if choice == "yes":
+        main()
+    else:
+        slow_print("Thank you for playing!\n")
+        exit()
+
+# Main Game Loop
+def main():
+    player = Player()
+    slow_print("Welcome to the Curse of Strahd Adventure!\n")
+    player.name = input("Enter your character's name: ")
+    slow_print(f"Welcome, {player.name}. Your journey begins...\n")
+    introduction(player)
+
+# Start the Game
+main()
+
 # Main function to run the game
 def main():
     intro()
