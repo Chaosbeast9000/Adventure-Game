@@ -380,11 +380,5 @@ def death():
     else:
         print("\nGame over. Thank you for playing.")
 
-def start():
-    print("\nWelcome to Curse of Strahd! Your adventure begins now.")
-    print("\nYou stand at the gates of Castle Ravenloft, the winds howling around you. The cursed land awaits.")
-    # Start the game and invoke the first area
-    castle_entrance()
-
 # Run the game
 start()
