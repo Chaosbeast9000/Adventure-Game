@@ -327,6 +327,43 @@ def hidden_chamber():
         print("\nYou stand frozen, unsure of what to do next. The eerie light from the orb seems to pull you closer.")
         hidden_chamber()
 
+passage():
+    print("\nYou find a hidden door in the wall, cleverly concealed among the shadows. The door leads to a narrow passageway.")
+    print("\nThe passage is filled with cobwebs and dust, but something feels off about it. A strange pull draws you deeper into the darkness.")
+    print("\nAt the end of the passage, you find a spiral staircase leading up to a forgotten tower.")
+    choice = input("\nDo you ascend the stairs (type 'ascend') or leave the passage (type 'leave')? ").lower()
+
+    if choice == "ascend":
+        print("\nThe stairs creak beneath your weight as you ascend. The air grows colder the higher you go.")
+        tower_top()
+    elif choice == "leave":
+        print("\nYou decide to leave the passage for now and return to the main hall.")
+        castle_interior()
+    else:
+        print("\nYou hesitate, unsure of whether to take the risk. The passage seems to beckon you further.")
+        secret_passage()
+
+def tower_top():
+    print("\nAt the top of the tower, you find yourself in a small room with a view of Barovia’s twisted landscape.")
+    print("\nA large window offers a clear sight of Castle Ravenloft’s battlements, and beyond it, the land is shrouded in perpetual twilight.")
+    print("\nOn a stone pedestal in the center of the room is an ancient relic: a magical crystal that pulses with dark energy.")
+    choice = input("\nDo you take the crystal (type 'take') or leave it alone (type 'leave')? ").lower()
+
+    if choice == "take":
+        print("\nAs your hand touches the crystal, a surge of dark power courses through you.")
+        print("\nYou feel more connected to the land of Barovia, and strange powers awaken within you.")
+        print("\nHowever, you now feel Strahd’s gaze upon you more strongly than ever. He is aware of your presence.")
+        print("\nThis could be both a blessing and a curse.")
+        input("Press Enter to continue...")
+        castle_interior()
+    elif choice == "leave":
+        print("\nYou decide not to risk taking the crystal, fearing its dark power.")
+        print("\nYou carefully leave the tower and return to the main hall.")
+        castle_interior()
+    else:
+        print("\nYou hesitate, drawn to the crystal yet afraid of its power.")
+        tower_top()
+
 def combat():
     print("\nThe fight begins! The enemy lunges at you, claws outstretched, fangs glinting in the dim light.")
     # Combat mechanics go here, e.g., dice rolls, attack choices, etc.
