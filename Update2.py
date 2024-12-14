@@ -1,4 +1,4 @@
-# Variables
+#variables
 map_perception = 15
 map_snatch = 17
 gold_for_map = "gold"
@@ -242,18 +242,112 @@ def castle_interior():
         elif choice == "wait":
             print("\nYou wait, holding your breath, trying to gather your courage. But nothing happens, and the silence seems to stretch forever.")
             print("\nWith a sigh, you decide to continue onward.")
-            castle_interior()
+            dining_hall()
         else:
             print("\nConfusion sets in as the situation grows more tense. You hesitate.")
             castle_interior()
 
+def dining_hall():
+    print("\nYou step into the grand dining hall. A long table, richly set with silver plates and goblets, stretches out before you.")
+    print("\nThe room is eerily quiet, with no signs of life. A large portrait of Strahd hangs on the wall, his eyes seeming to follow your every move.")
+    print("\nAt the far end of the hall, a door leads into a darkened corridor.")
+    choice = input("\nDo you investigate the table (type 'investigate') or proceed to the door (type 'proceed')? ").lower()
+
+    if choice == "investigate":
+        print("\nYou approach the table, inspecting the food and drink. The dishes are still warm, but the food looks old and decayed.")
+        print("\nSuddenly, a shadow moves across the wall, and a whisper fills the air: 'The master is watching you.'")
+        print("\nYou quickly step back, unnerved, but you notice a hidden compartment beneath the table.")
+        print("\nYou open it and find an old silver dagger, etched with strange runes.")
+        print("\nThis weapon could prove useful against the vampire lord.")
+        inventory.append("Silver Dagger")
+        input("Press Enter to continue...")
+        dining_hall()
+    elif choice == "proceed":
+        print("\nYou move cautiously toward the door, the cold air from the corridor making your skin crawl.")
+        print("\nAs you step into the hallway, you feel the temperature drop even further.")
+        crypts()
+    else:
+        print("\nYou hesitate, unsure of what to do. The silence in the dining hall grows unbearable.")
+        dining_hall()
+
+def crypts():
+    print("\nThe passage leads to a set of stairs, spiraling down into the crypts beneath Castle Ravenloft.")
+    print("\nThe air is damp and musty as you descend, the walls covered in ancient symbols and markings.")
+    print("\nAt the bottom of the stairs, the crypts stretch out before you. Rows of sarcophagi line the walls, and the ground is littered with dust and broken stone.")
+    print("\nSuddenly, a low growl echoes from the shadows.")
+    choice = input("\nDo you investigate the sound (type 'investigate') or hide and wait (type 'hide')? ").lower()
+
+    if choice == "investigate":
+        print("\nYou step forward, carefully making your way toward the source of the growl.")
+        print("\nFrom the shadows, a monstrous figure emerges—a ghoul, its eyes glowing with hunger.")
+        combat()
+    elif choice == "hide":
+        print("\nYou quickly find a spot behind one of the sarcophagi, holding your breath as the ghoul moves past.")
+        print("\nOnce the danger has passed, you move deeper into the crypts.")
+        crypt_puzzle()
+    else:
+        print("\nThe growl echoes louder now, and you stand frozen in place.")
+        crypts()
+
+def crypt_puzzle():
+    print("\nAs you explore deeper into the crypts, you come across a strange door, adorned with intricate carvings.")
+    print("\nThe carvings seem to depict a riddle, a puzzle to unlock the door.")
+    print("\nThe riddle reads: 'I am not alive, but I grow. I do not have lungs, but I need air. What am I?'")
+    choice = input("\nSolve the riddle (type 'solve') or leave the door and explore more (type 'leave')? ").lower()
+
+    if choice == "solve":
+        print("\nYou think for a moment and realize the answer is 'fire.'")
+        print("\nThe carvings shift, and the door slowly creaks open, revealing a hidden chamber.")
+        hidden_chamber()
+    elif choice == "leave":
+        print("\nYou decide not to take any chances and leave the crypts to explore other parts of the castle.")
+        castle_interior()
+    else:
+        print("\nYou stare at the door, the riddle seemingly impossible to solve.")
+        crypt_puzzle()
+
+def hidden_chamber():
+    print("\nThe hidden chamber is small but filled with strange objects and ancient relics. A cold wind blows from a distant passage.")
+    print("\nIn the center of the room lies a pedestal with an orb resting upon it. The orb emits an eerie light, casting shadows against the walls.")
+    print("\nYou step closer to the pedestal, feeling a strange pull toward the orb.")
+    choice = input("\nDo you touch the orb (type 'touch') or investigate the other relics (type 'investigate')? ").lower()
+
+    if choice == "touch":
+        print("\nAs you touch the orb, a burst of energy surges through you. Your mind is flooded with visions of Strahd and his reign of terror.")
+        print("\nYou feel empowered but also aware that the orb is linked to the vampire lord’s power.")
+        print("\nYou now have the ability to resist some of Strahd's mind control.")
+        input("Press Enter to continue...")
+        castle_interior()
+    elif choice == "investigate":
+        print("\nYou take your time exploring the other relics in the chamber. Among the strange artifacts, you find an old book titled 'The Rise of Strahd.'")
+        print("\nThe book may contain valuable information about Strahd’s past and how to defeat him.")
+        input("Press Enter to continue...")
+        castle_interior()
+    else:
+        print("\nYou stand frozen, unsure of what to do next. The eerie light from the orb seems to pull you closer.")
+        hidden_chamber()
+
+def combat():
+    print("\nThe fight begins! The enemy lunges at you, claws outstretched, fangs glinting in the dim light.")
+    # Combat mechanics go here, e.g., dice rolls, attack choices, etc.
+    print("\nThe battle rages on. Will you defeat this foe, or succumb to the darkness?")
+    # Simulate a combat outcome here
+    death()
+
 def death():
-    print("\nYour vision fades to black as the vampire spawn’s bite drains your life away.")
-    print("\nYou’ve perished. The castle remains, as oppressive and unforgiving as ever.")
+    print("\nYou have fallen in battle. The dark forces of Castle Ravenloft are relentless.")
     print("\nWould you like to try again? (yes/no): ")
     try_again = input().lower()
     if try_again == "yes":
-        start()  # Restart the game
+        start()
     else:
-        print("\nGame over. Thank you for playing!")
-   
+        print("\nGame over. Thank you for playing.")
+
+def start():
+    print("\nWelcome to Curse of Strahd! Your adventure begins now.")
+    print("\nYou stand at the gates of Castle Ravenloft, the winds howling around you. The cursed land awaits.")
+    # Start the game and invoke the first area
+    castle_entrance()
+
+# Run the game
+start()
