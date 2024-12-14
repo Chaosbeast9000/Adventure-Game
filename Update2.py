@@ -327,7 +327,7 @@ def hidden_chamber():
         print("\nYou stand frozen, unsure of what to do next. The eerie light from the orb seems to pull you closer.")
         hidden_chamber()
 
-passage():
+def secret_passage():
     print("\nYou find a hidden door in the wall, cleverly concealed among the shadows. The door leads to a narrow passageway.")
     print("\nThe passage is filled with cobwebs and dust, but something feels off about it. A strange pull draws you deeper into the darkness.")
     print("\nAt the end of the passage, you find a spiral staircase leading up to a forgotten tower.")
